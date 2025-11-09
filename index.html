@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#8B5CF6">
+    <title>Login - Maison Etoile 🍄</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8B5CF6;
+            --primary-dark: #7C3AED;
+            --secondary: #EC4899;
+            --gradient-pink: linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%);
+            --shadow-lg: 0 10px 40px rgba(139, 92, 246, 0.3);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '✨';
+            position: fixed;
+            font-size: 3em;
+            top: 10%;
+            left: 5%;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '🍄';
+            position: fixed;
+            font-size: 2.5em;
+            bottom: 10%;
+            right: 8%;
+            animation: float 5s ease-in-out infinite;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 30px;
+            padding: 50px 40px;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: var(--shadow-lg);
+            border: 3px solid #E9D5FF;
+            animation: slideUp 0.5s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .login-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-pink);
+            border-radius: 25px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 4px 16px rgba(139, 92, 246, 0.25);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .login-header h1 {
+            font-size: 2.2em;
+            font-weight: 800;
+            background: var(--gradient-pink);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Dancing Script', cursive;
+            margin-bottom: 10px;
+        }
+
+        .login-header p {
+            color: #666;
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.95em;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .password-input-wrapper {
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 3px solid #E9D5FF;
+            border-radius: 18px;
+            font-size: 1em;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+            background: #F3E8FF;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .form-group input[type="password"],
+        .form-group input[type="text"].password-field {
+            padding-right: 55px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
+            background: white;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.3em;
+            color: var(--primary);
+            padding: 5px;
+            transition: var(--transition);
+        }
+
+        .toggle-password:hover {
+            transform: translateY(-50%) scale(1.2);
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .remember-me label {
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 18px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.05em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--gradient-pink);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 4px 16px rgba(139, 92, 246, 0.25);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-login:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-3px);
+        }
+
+        .btn-login:active {
+            transform: scale(0.95);
+        }
+
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .error-message {
+            background: linear-gradient(135deg, #FFE5E5 0%, #FFC1CC 100%);
+            color: #EF4444;
+            padding: 15px 20px;
+            border-radius: 18px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            display: none;
+            border: 3px solid #EF4444;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .error-message.show {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .loader {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #ffffff;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .btn-login.loading .loader {
+            display: block;
+        }
+
+        .btn-login.loading .login-text {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="login-icon">🍄</div>
+            <h1>Maison Etoile</h1>
+            <p>Login to manage your sales</p>
+        </div>
+
+        <div id="errorMessage" class="error-message">
+            <span>❌</span>
+            <span id="errorText">Invalid username or password</span>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label>👤 Username</label>
+                <input type="text" id="username" placeholder="Enter your username" required autocomplete="username">
+            </div>
+
+            <div class="form-group">
+                <label>🔒 Password</label>
+                <div class="password-input-wrapper">
+                    <input type="password" id="password" class="password-field" placeholder="Enter your password" required autocomplete="current-password">
+                    <button type="button" class="toggle-password" id="togglePassword" title="Show/Hide Password">
+                        👁️
+                    </button>
+                </div>
+            </div>
+
+            <div class="remember-me">
+                <input type="checkbox" id="rememberMe">
+                <label for="rememberMe">Remember me on this device</label>
+            </div>
+
+            <button type="submit" class="btn-login" id="loginBtn">
+                <div class="loader"></div>
+                <div class="login-text">
+                    <span>🚀</span>
+                    <span>Login to Dashboard</span>
+                </div>
+            </button>
+        </form>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <script>
+        // =================== APP CONFIGURATION ===================
+        const APP_NAME = 'vanille'; // YOUR UNIQUE APP NAME - Each app gets its own isolated folder
+
+        // =================== FIREBASE CONFIGURATION ===================
+const firebaseConfig = {
+  apiKey: "AIzaSyCa4XYpwePgiTWL30sSkIubYbWizTHwEQU",
+  authDomain: "maisonetoile-5eee1.firebaseapp.com",
+  databaseURL: "https://maisonetoile-5eee1-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "maisonetoile-5eee1",
+  storageBucket: "maisonetoile-5eee1.firebasestorage.app",
+  messagingSenderId: "902250837280",
+  appId: "1:902250837280:web:6fbdc2dae35a4409fdd345",
+  measurementId: "G-15EJJVWCX9"
+};
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        
+        // Helper function to get app-specific database reference
+        function getRef(path) {
+            return database.ref(APP_NAME + '/' + path);
+        }
+        
+        console.log('✅ Firebase initialized for app:', APP_NAME);
+        console.log('📂 All data will be stored in: ' + APP_NAME + '/');
+
+        // =================== PASSWORD VISIBILITY TOGGLE ===================
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // Change icon
+            this.textContent = type === 'password' ? '👁️' : '🙈';
+        });
+
+        // =================== REMEMBER ME FUNCTIONALITY ===================
+        window.addEventListener('DOMContentLoaded', function() {
+            // Load saved credentials if "Remember Me" was checked
+            const rememberedUsername = localStorage.getItem('rememberedUsername_' + APP_NAME);
+            const rememberedPassword = localStorage.getItem('rememberedPassword_' + APP_NAME);
+            
+            if (rememberedUsername && rememberedPassword) {
+                document.getElementById('username').value = rememberedUsername;
+                document.getElementById('password').value = rememberedPassword;
+                document.getElementById('rememberMe').checked = true;
+            }
+        });
+
+        // Initialize default owner in Firebase
+        function initializeDefaultUsers() {
+            getRef('users/jgemszie').once('value')
+                .then((snapshot) => {
+                    if (!snapshot.exists()) {
+                        // Create default owner account in Firebase INSIDE your app folder
+                        const defaultOwner = {
+                            id: 1,
+                            customName: "vanille",
+                            username: "vanille",
+                            password: "Vanille2024!",
+                            role: "owner",
+                            profitPercent: 100,
+                            createdDate: new Date().toISOString().split('T')[0]
+                        };
+                        return getRef('users/jgemszie').set(defaultOwner);
+                    }
+                })
+                .then(() => {
+                    console.log('✅ Default user initialized at: ' + APP_NAME + '/users/jgemszie');
+                })
+                .catch((error) => {
+                    console.error('❌ Firebase initialization error:', error);
+                    document.getElementById('errorText').textContent = 'Firebase connection error. Please check your internet.';
+                    document.getElementById('errorMessage').classList.add('show');
+                });
+        }
+
+        // Initialize on page load
+        initializeDefaultUsers();
+
+        // Handle login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const rememberMe = document.getElementById('rememberMe').checked;
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            const loginBtn = document.getElementById('loginBtn');
+
+            // Show loading state
+            loginBtn.classList.add('loading');
+            loginBtn.disabled = true;
+            errorMessage.classList.remove('show');
+
+            // Authenticate against Firebase - ONLY from YOUR app folder
+            getRef('users/' + username).once('value')
+                .then((snapshot) => {
+                    const user = snapshot.val();
+                    
+                    if (user && user.password === password) {
+                        // Save credentials if Remember Me is checked
+                        if (rememberMe) {
+                            localStorage.setItem('rememberedUsername_' + APP_NAME, username);
+                            localStorage.setItem('rememberedPassword_' + APP_NAME, password);
+                        } else {
+                            // Clear saved credentials if not checked
+                            localStorage.removeItem('rememberedUsername_' + APP_NAME);
+                            localStorage.removeItem('rememberedPassword_' + APP_NAME);
+                        }
+
+                        // Login successful - Store session
+                        const session = {
+                            id: user.id,
+                            customName: user.customName,
+                            username: user.username,
+                            role: user.role,
+                            profitPercent: user.profitPercent,
+                            loginTime: new Date().toISOString(),
+                            appName: APP_NAME
+                        };
+                        localStorage.setItem('session', JSON.stringify(session));
+                        
+                        console.log('✅ Login successful! User:', user.customName);
+                        console.log('📂 Session stored for app:', APP_NAME);
+                        
+                        // Redirect to dashboard
+                        window.location.href = 'dashboard.html';
+                    } else {
+                        // Invalid credentials
+                        throw new Error('Invalid username or password');
+                    }
+                })
+                .catch((error) => {
+                    console.error('Login error:', error);
+                    errorText.textContent = error.message || 'Login failed. Please try again.';
+                    errorMessage.classList.add('show');
+                    loginBtn.classList.remove('loading');
+                    loginBtn.disabled = false;
+                    
+                    setTimeout(() => {
+                        errorMessage.classList.remove('show');
+                    }, 4000);
+                });
+        });
+
+        // Check if already logged in
+        const session = localStorage.getItem('session');
+        if (session) {
+            const sessionData = JSON.parse(session);
+            // Only redirect if logged in to THIS app
+            if (sessionData.appName === APP_NAME) {
+                window.location.href = 'dashboard.html';
+            }
+        }
+
+        // Auto-focus username field
+        document.getElementById('username').focus();
+    </script>
+</body>
+</html>
