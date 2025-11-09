@@ -392,7 +392,7 @@ const firebaseConfig = {
 
         // Initialize default owner in Firebase
         function initializeDefaultUsers() {
-            getRef('users/jgemszie').once('value')
+            getRef('users/vanille').once('value')
                 .then((snapshot) => {
                     if (!snapshot.exists()) {
                         // Create default owner account in Firebase INSIDE your app folder
@@ -405,11 +405,11 @@ const firebaseConfig = {
                             profitPercent: 100,
                             createdDate: new Date().toISOString().split('T')[0]
                         };
-                        return getRef('users/jgemszie').set(defaultOwner);
+                        return getRef('users/vanille').set(defaultOwner);
                     }
                 })
                 .then(() => {
-                    console.log('✅ Default user initialized at: ' + APP_NAME + '/users/jgemszie');
+                    console.log('✅ Default user initialized at: ' + APP_NAME + '/users/vanille');
                 })
                 .catch((error) => {
                     console.error('❌ Firebase initialization error:', error);
